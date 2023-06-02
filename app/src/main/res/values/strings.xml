@@ -1,8 +1,5 @@
 <resources>
     <string name="app_name">Jejak Karbon</string>
-    <string name="Github">Test Github</string>
-    <string name="Github2">Test Github2</string>
-    <string name="title_activity_test_login">TestLoginActivity</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
@@ -18,9 +15,25 @@
     <string name="or">or\n</string>
     <string name="login_title">Sign In to Jejak Karbon\n</string>
     <string name="login_subtitle">Enter Your Details below\n</string>
-    <string name="sign_in_with_google">SIGN IN WITH GOOGLE\n</string>
     <string name="sign_up_with_google">SIGN UP WITH GOOGLE\n</string>
     <string name="register_title">Register to Jejak Karbon</string>
     <string name="register_button">Register\n</string>
     <string name="already_have_acc"><font color="#00210B">Already Have an Account?</font> Sign In Here</string>
+    <string name="logo_description">logo</string>
+    <string name="sign_in_to_jejak_karbon">Sign in to Jejak karbon</string>
+    <string name="enter_your_details_below">Enter your details below</string>
+    <string name="sign_in_with_google">Sign in with google</string>
+    <string name="account">Account</string>
+    <string name="log_out">Log Out</string>
+    <string name="name">Name</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="save">Save</string>
+    <string name="continued">Continue</string>
+    <string name="question_1">How much do you get around by car annually?</string>
+    <string name="i_don_t_drive_or_ride">I don’t drive or ride</string>
+    <string name="up_to_5_000_km">up to 5,000 km</string>
+    <string name="_5_000_10_000_km">5,000 – 10,000 km</string>
+    <string name="_10_000_15_000_km">10,000 – 15,000 km</string>
+    <string name="enter_kilometers">Enter kilometers</string>
 </resources>
