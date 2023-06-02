@@ -9,14 +9,13 @@ import android.view.TextureView
 import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.RadioGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.jejakkarbon.R
 
 class OnboardingActivity : AppCompatActivity() {
     private lateinit var videoTextureView: TextureView
     private lateinit var radioGroup: RadioGroup
-    private lateinit var radioButton6: RadioButton
+    private lateinit var customRadioValue: RadioButton
     private var previousCustomValue: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +24,7 @@ class OnboardingActivity : AppCompatActivity() {
 
         videoTextureView = findViewById(R.id.videoTextureView)
         radioGroup = findViewById(R.id.radioGroup)
-        radioButton6 = findViewById(R.id.radioButton6)
+        customRadioValue = findViewById(R.id.radiobtn_5)
 
         videoTextureView.surfaceTextureListener = object : TextureView.SurfaceTextureListener {
             override fun onSurfaceTextureAvailable(surface: SurfaceTexture, width: Int, height: Int) {
@@ -52,8 +51,6 @@ class OnboardingActivity : AppCompatActivity() {
 
             if (index == 4 && radioButton.isChecked) {
                 showCustomInputDialog()
-            } else {
-                showToast("Selected index: $index")
             }
         }
     }
@@ -82,16 +79,11 @@ class OnboardingActivity : AppCompatActivity() {
     }
 
     private fun handleCustomValue(customValue: String) {
-        showToast("Custom value submitted: $customValue")
         previousCustomValue = customValue
-        radioButton6.text = buildString {
+        customRadioValue.text = buildString {
             append(customValue)
             append(" Kilometers")
         }
-    }
-
-    private fun showToast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
 

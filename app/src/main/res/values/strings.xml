@@ -30,4 +30,10 @@
     <string name="email">Email</string>
     <string name="save">Save</string>
     <string name="continued">Continue</string>
+    <string name="question_1">How much do you get around by car annually?</string>
+    <string name="i_don_t_drive_or_ride">I don’t drive or ride</string>
+    <string name="up_to_5_000_km">up to 5,000 km</string>
+    <string name="_5_000_10_000_km">5,000 – 10,000 km</string>
+    <string name="_10_000_15_000_km">10,000 – 15,000 km</string>
+    <string name="enter_kilometers">Enter kilometers</string>
 </resources>
