@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Jejak Karbon</string>
+    <string name="Github">Test Github</string>
+    <string name="Github2">Test Github2</string>
+    <string name="title_activity_test_login">TestLoginActivity</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
@@ -8,14 +11,16 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
-    <string name="logo_description">logo</string>
-    <string name="sign_in_to_jejak_karbon">Sign in to Jejak karbon</string>
-    <string name="enter_your_details_below">Enter your details below</string>
-    <string name="sign_in_with_google">Sign in with google</string>
-    <string name="account">Account</string>
-    <string name="log_out">Log Out</string>
-    <string name="name">Name</string>
-    <string name="password">Password</string>
-    <string name="email">Email</string>
-    <string name="save">Save</string>
+    <string name="fill_required">*Required\n</string>
+    <string name="forgot_password">Forgot Password?\n</string>
+    <string name="login_button">Login\n</string>
+    <string name="dont_have_acc"><font color="#00210B">Don\'t Have Account?</font> Register Here\n</string>
+    <string name="or">or\n</string>
+    <string name="login_title">Sign In to Jejak Karbon\n</string>
+    <string name="login_subtitle">Enter Your Details below\n</string>
+    <string name="sign_in_with_google">SIGN IN WITH GOOGLE\n</string>
+    <string name="sign_up_with_google">SIGN UP WITH GOOGLE\n</string>
+    <string name="register_title">Register to Jejak Karbon</string>
+    <string name="register_button">Register\n</string>
+    <string name="already_have_acc"><font color="#00210B">Already Have an Account?</font> Sign In Here</string>
 </resources>
