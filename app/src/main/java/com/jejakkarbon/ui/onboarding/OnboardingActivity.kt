@@ -3,16 +3,21 @@ package com.jejakkarbon.ui.onboarding
 import android.app.AlertDialog
 import android.graphics.SurfaceTexture
 import android.media.MediaPlayer
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.Surface
 import android.view.TextureView
 import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.jejakkarbon.R
+import com.jejakkarbon.databinding.ActivityOnboardingBinding
 
 class OnboardingActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityOnboardingBinding
     private lateinit var videoTextureView: TextureView
     private lateinit var radioGroup: RadioGroup
     private lateinit var customRadioValue: RadioButton
@@ -20,30 +25,49 @@ class OnboardingActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_onboarding)
+        binding = ActivityOnboardingBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        videoTextureView = findViewById(R.id.videoTextureView)
-        radioGroup = findViewById(R.id.radioGroup)
-        customRadioValue = findViewById(R.id.radiobtn_5)
+        videoTextureView = binding.videoTextureView
+        radioGroup = binding.radioGroup
+        customRadioValue = binding.radiobtn5
+
+        val mediaPlayer = MediaPlayer()
 
         videoTextureView.surfaceTextureListener = object : TextureView.SurfaceTextureListener {
-            override fun onSurfaceTextureAvailable(surface: SurfaceTexture, width: Int, height: Int) {
-                val mediaPlayer = MediaPlayer.create(applicationContext, R.raw.traffic)
+            @RequiresApi(Build.VERSION_CODES.M)
+            override fun onSurfaceTextureAvailable(
+                surface: SurfaceTexture, width: Int, height: Int
+            ) {
+                mediaPlayer.setDataSource(
+                    applicationContext,
+                    Uri.parse("android.resource://com.jejakkarbon/${R.raw.car_traffic}")
+                )
                 mediaPlayer.setSurface(Surface(surface))
                 mediaPlayer.isLooping = true
+                mediaPlayer.prepare()
                 mediaPlayer.start()
+
+                // Set playback speed to 0.5 (half speed)
+                mediaPlayer.playbackParams = mediaPlayer.playbackParams.apply {
+                    speed = 0.5f
+                }
             }
 
-            override fun onSurfaceTextureSizeChanged(surface: SurfaceTexture, width: Int, height: Int) {}
+            override fun onSurfaceTextureSizeChanged(
+                surface: SurfaceTexture, width: Int, height: Int
+            ) {
+                // Handle size change if needed
+            }
 
             override fun onSurfaceTextureDestroyed(surface: SurfaceTexture): Boolean {
                 return false
             }
 
-            override fun onSurfaceTextureUpdated(surface: SurfaceTexture) {}
+            override fun onSurfaceTextureUpdated(surface: SurfaceTexture) {
+                // Texture is updated
+            }
         }
-
-
 
         radioGroup.setOnCheckedChangeListener { _, checkedId ->
             val radioButton = findViewById<RadioButton>(checkedId)
@@ -54,6 +78,7 @@ class OnboardingActivity : AppCompatActivity() {
             }
         }
     }
+
 
     private fun showCustomInputDialog() {
         val dialogBuilder = AlertDialog.Builder(this)
