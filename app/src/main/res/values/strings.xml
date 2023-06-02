@@ -1,8 +1,5 @@
 <resources>
     <string name="app_name">Jejak Karbon</string>
-    <string name="Github">Test Github</string>
-    <string name="Github2">Test Github2</string>
-    <string name="title_activity_test_login">TestLoginActivity</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
@@ -11,4 +8,14 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="logo_description">logo</string>
+    <string name="sign_in_to_jejak_karbon">Sign in to Jejak karbon</string>
+    <string name="enter_your_details_below">Enter your details below</string>
+    <string name="sign_in_with_google">Sign in with google</string>
+    <string name="account">Account</string>
+    <string name="log_out">Log Out</string>
+    <string name="name">Name</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="save">Save</string>
 </resources>
