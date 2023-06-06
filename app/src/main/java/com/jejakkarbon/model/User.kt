@@ -1,7 +1,9 @@
 package com.jejakkarbon.model
 
 data class User(
-    val username: String,
+    val user_id: String,
     val email: String,
-    val password: String
+    val name: String,
+    val plant: List<Plant>
 )
+

@@ -39,4 +39,12 @@
     <string name="plant_preview">Your Plant</string>
     <string name="predict">Predict</string>
     <string name="plant_name_predicted">Plant Name \n</string>
+    <string name="do_you_have_a_plant">Do you have a plant?</string>
+    <string name="no_i_don_t_have_plant">No, I don’t have plant</string>
+    <string name="yes_i_have">Yes, i have</string>
+    <string name="please_take_a_picture_of_your_plant_to_calculate_how_much_carbon_it_produces">Please take a picture of your plant to calculate how much carbon it produces.</string>
+    <string name="skip">Skip</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="cancel">Cancel</string>
 </resources>

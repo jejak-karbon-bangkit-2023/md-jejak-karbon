@@ -10,68 +10,101 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.FirebaseAuth
 import com.jejakkarbon.R
 import com.jejakkarbon.databinding.ActivityLoginBinding
 import com.jejakkarbon.di.Injection
+import com.jejakkarbon.model.UserToken
+import com.jejakkarbon.preferences.Preferences
+import com.jejakkarbon.ui.dashboard.DashboardActivity
 import com.jejakkarbon.ui.onboarding.OnboardingActivity
 import com.jejakkarbon.ui.register.RegisterActivity
-import com.jejakkarbon.utils.ResultState
+import com.jejakkarbon.utils.Result
 
 class LoginActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityLoginBinding
     private lateinit var loginViewModel: LoginViewModel
     private lateinit var googleSignInClient: GoogleSignInClient
-
+    private lateinit var preferences: Preferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        initializeDependencies()
+        setupClickListeners()
+        checkUserLoginStatus()
+    }
 
+    private fun initializeDependencies() {
+        preferences = Preferences(this)
+        Injection.initialize(applicationContext)
         loginViewModel = Injection.provideLoginViewModel(this)
-
         googleSignInClient = createGoogleSignInClient()
+    }
 
-        binding.ivGoogleLogin.setOnClickListener {
-            signInWithGoogle()
-        }
+    private fun setupClickListeners() {
+        binding.ivGoogleLogin.setOnClickListener { signInWithGoogle() }
+        binding.btLogin.setOnClickListener { performLogin() }
+        binding.tvAlreadyHaveAcc.setOnClickListener { navigateToRegisterActivity() }
+    }
 
-        binding.btLogin.setOnClickListener {
-            val email = binding.edEmailLogin.text.toString()
-            val password = binding.edPasswordLogin.text.toString()
-
-            loginViewModel.login(email, password)
-        }
-
-
-        binding.tvForgotPassword.setOnClickListener {}
-
-        binding.tvAlreadyHaveAcc.setOnClickListener {
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
+    private fun observeLoginState() {
         loginViewModel.loginState.observe(this) { result ->
             when (result) {
-                is ResultState.Success -> {
+                is Result.Success -> {
                     binding.progressBar.visibility = View.GONE
-                    val intent = Intent(this, OnboardingActivity::class.java)
-                    startActivity(intent)
-                    finish()
+                    checkUserLoginStatus()
+                    saveUserToken()
                 }
 
-                is ResultState.Error -> {
+                is Result.Error -> {
+                    binding.progressBar.visibility = View.GONE
                     showToast("Login failed: ${result.message}")
-                    binding.progressBar.visibility = View.GONE
                 }
 
-                is ResultState.Loading -> {
+                is Result.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
                 }
             }
         }
     }
+
+    private fun saveUserToken() {
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        currentUser?.getIdToken(true)?.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val idToken = task.result.token
+                val userToken = UserToken(token = idToken.toString(), isLogin = true)
+                preferences.setToken(userToken)
+            } else {
+                val exception = task.exception
+                showToast("Token retrieval failed: ${exception?.message ?: "Token retrieval failed"}")
+            }
+        }
+    }
+
+    private fun checkUserLoginStatus() {
+        val userToken by lazy { preferences.getToken() }
+        val isFirstLogin = preferences.isFirstLogin()
+        if (userToken.isLogin) {
+            if (isFirstLogin) {
+                navigateToOnboardingActivity()
+            } else {
+                navigateToDashboardActivity()
+            }
+        }
+    }
+
+
+    private fun performLogin() {
+        val email = binding.edEmailLogin.text.toString()
+        val password = binding.edPasswordLogin.text.toString()
+        loginViewModel.login(email, password)
+        observeLoginState()
+    }
+
 
     private val signInLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -96,6 +129,13 @@ class LoginActivity : AppCompatActivity() {
             val idToken = account?.idToken
             idToken?.let {
                 loginViewModel.loginWithGoogle(it)
+                val isFirstLogin = preferences.isFirstLogin()
+                if (isFirstLogin) {
+                    navigateToOnboardingActivity()
+                } else {
+                    navigateToDashboardActivity()
+                }
+                saveUserToken()
             }
         } catch (e: ApiException) {
             showToast("Google sign-in failed: ${e.message}")
@@ -105,6 +145,24 @@ class LoginActivity : AppCompatActivity() {
     private fun signInWithGoogle() {
         val signInIntent = googleSignInClient.signInIntent
         signInLauncher.launch(signInIntent)
+    }
+
+    private fun navigateToRegisterActivity() {
+        val intent = Intent(this, RegisterActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    private fun navigateToDashboardActivity() {
+        val intent = Intent(this, DashboardActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    private fun navigateToOnboardingActivity() {
+        val intent = Intent(this, OnboardingActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     private fun showToast(message: String) {

@@ -30,6 +30,10 @@
         <item name="colorSurfaceInverse">@color/md_theme_light_inverseSurface</item>
         <item name="colorPrimaryInverse">@color/md_theme_light_inversePrimary</item>
     </style>
-
+    <style name="CustomDialog" parent="Base.Theme.JejakKarbon">
+        <item name="android:windowBackground">@drawable/dialog_background</item>
+        <item name="android:windowMinWidthMajor">@dimen/dialog_min_width_major</item>
+        <item name="android:windowMinWidthMinor">@dimen/dialog_min_width_minor</item>
+    </style>
     <style name="Theme.JejakKarbon" parent="Base.Theme.JejakKarbon" />
 </resources>

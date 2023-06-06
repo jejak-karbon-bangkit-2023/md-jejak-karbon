@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.onboarding.OnboardingActivity">
+    tools:context=".ui.onboarding.OnboardingPlantActivity">
 
     <TextureView
         android:id="@+id/videoTextureView"
@@ -16,13 +16,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/question_1"
+        android:id="@+id/question_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:background="@drawable/textview_background"
         android:padding="20dp"
-        android:text="@string/question_1"
+        android:text="@string/do_you_have_a_plant"
         app:layout_constraintBottom_toTopOf="@+id/radioGroup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -49,35 +49,14 @@
             style="@style/Widget.Material3.CompoundButton.RadioButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/i_don_t_drive_or_ride" />
+            android:text="@string/no_i_don_t_have_plant" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/radiobtn_2"
             style="@style/Widget.Material3.CompoundButton.RadioButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/up_to_5_000_km" />
-
-        <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/radiobtn_3"
-            style="@style/Widget.Material3.CompoundButton.RadioButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/_5_000_10_000_km" />
-
-        <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/radiobtn_4"
-            style="@style/Widget.Material3.CompoundButton.RadioButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/_10_000_15_000_km" />
-
-        <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/radiobtn_5"
-            style="@style/Widget.Material3.CompoundButton.RadioButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/enter_kilometers" />
+            android:text="@string/yes_i_have" />
 
     </RadioGroup>
 
