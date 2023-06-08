@@ -6,17 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".ui.guide.GuideDetailActivity">
 
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/back_menu" />
+
     <TextView
         android:id="@+id/tv_guide_title"
         android:layout_width="380dp"
-        android:layout_height="680dp"
-        android:layout_marginTop="32dp"
+        android:layout_height="670dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/tv_round_border"
         android:fontFamily="@font/quicksand_bold"
         android:textAlignment="center"
         android:textColorHighlight="@color/white"
         android:textSize="25sp"
         android:textStyle="bold"
-        android:background="@drawable/tv_round_border"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

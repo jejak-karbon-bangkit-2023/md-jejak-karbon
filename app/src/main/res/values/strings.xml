@@ -57,4 +57,7 @@
     <string name="addstory">Add Story\n</string>
     <string name="guide">Guide\n</string>
     <string name="profile">Profile</string>
+    <string name="profile_screen_title">Profile</string>
+    <string name="back">Back</string>
+    <string name="edit_profile_title">Edit Account</string>
 </resources>
