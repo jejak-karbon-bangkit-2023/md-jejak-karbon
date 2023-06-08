@@ -1,61 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="300dp"
-    android:layout_marginStart="16dp"
-    android:layout_marginTop="48dp"
+    android:layout_height="350dp"
+    android:layout_marginStart="15dp"
+    android:layout_marginTop="24dp"
     android:layout_marginEnd="16dp"
-    android:background="?android:colorBackground"
     tools:context=".ui.profile.ProfileActivity">
+
+
+    <TextView
+        android:id="@+id/tv_profile_screen_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="24dp"
+        android:background=""
+        android:fontFamily="@font/quicksand_bold"
+        android:text="@string/profile_screen_title"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/Profile"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/background_container">
+        android:layout_height="300dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/tv_round_border"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="16dp" />
 
-        <TextView
-            android:id="@+id/Profile"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="32dp"
-            android:fontFamily="@font/quicksand_bold"
-            android:drawablePadding="54dp"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:text="@string/account"
-            android:textColor="@android:color/black"
-            android:textSize="16sp"
-            app:drawableStartCompat="@drawable/baseline_person"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/Profile"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="32dp"
+        android:drawablePadding="54dp"
+        android:fontFamily="@font/quicksand_bold"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:text="@string/account"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:drawableStartCompat="@drawable/baseline_person"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
-        <TextView
-            android:id="@+id/LogOut"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="68dp"
-            android:layout_marginEnd="32dp"
-            android:fontFamily="@font/quicksand_bold"
-            android:drawablePadding="54dp"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:text="@string/log_out"
-            android:textColor="@android:color/black"
-            android:textSize="16sp"
-            app:drawableStartCompat="@drawable/baseline_logout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/LogOut"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="32dp"
+        android:drawablePadding="54dp"
+        android:fontFamily="@font/quicksand_bold"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:text="@string/log_out"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:drawableStartCompat="@drawable/baseline_logout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
