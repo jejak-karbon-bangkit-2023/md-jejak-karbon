@@ -52,4 +52,9 @@
     <string name="food_category">Food\n\n</string>
     <string name="home_category">Home\n</string>
     <string name="lifestyle_category">Lifestyle\n</string>
+    <string name="home">Home\n</string>
+    <string name="statistics">Statistics</string>
+    <string name="addstory">Add Story\n</string>
+    <string name="guide">Guide\n</string>
+    <string name="profile">Profile</string>
 </resources>

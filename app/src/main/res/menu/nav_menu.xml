@@ -3,19 +3,23 @@
 
         <item
             android:id="@id/home"
-            android:title="Home"
+            android:title="@string/home"
             android:icon="@drawable/ic_home_logo"/>
         <item
             android:id="@+id/statistics"
-            android:title="Statistics"
+            android:title="@string/statistics"
             android:icon="@drawable/ic_statistics_logo"/>
         <item
             android:id="@id/add"
-            android:title="Add Story"
+            android:title="@string/addstory"
             android:icon="@drawable/ic_add_logo"/>
         <item
+            android:id="@+id/guide"
+            android:title="@string/guide"
+            android:icon="@drawable/ic_guide_logo"/>
+        <item
             android:id="@+id/profile"
-            android:title="Profile"
+            android:title="@string/profile"
             android:icon="@drawable/ic_profile_logo"/>
 
 </menu>
