@@ -4,6 +4,82 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="8dp"
     tools:context=".ui.dashboard.DashboardActivity">
+
+    <LinearLayout
+        android:id="@+id/ChartContainer"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_footprint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/quicksand_bold"
+        android:text="@string/my_footprint"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ChartContainer" />
+
+    <TextView
+        android:id="@+id/tv_footprint_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/quicksand_bold"
+        android:text="@string/footprint_value"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/tv_footprint"
+        app:layout_constraintTop_toBottomOf="@+id/ChartContainer" />
+
+    <TextView
+        android:id="@+id/tv_impact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/quicksand_bold"
+        android:text="@string/positive_impact"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ChartContainer" />
+
+    <TextView
+        android:id="@+id/tv_impact_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/quicksand_bold"
+        android:text="@string/positiv_impact_value"
+        android:textColor="?attr/colorTertiary"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/tv_impact"
+        app:layout_constraintTop_toBottomOf="@+id/ChartContainer" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="430dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_guide"
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline3"
+        tools:listitem="@layout/item_guide"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

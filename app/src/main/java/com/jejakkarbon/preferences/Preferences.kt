@@ -11,6 +11,7 @@ internal class Preferences(context: Context) {
         val editor = preferences.edit()
         editor.putString(TOKEN, value.token)
         editor.putBoolean(LOGIN, value.isLogin)
+        editor.putBoolean(FIRST_LOGIN, value.isFirstLogin)
         editor.apply()
     }
 
@@ -18,6 +19,7 @@ internal class Preferences(context: Context) {
         val user = UserToken()
         user.token = preferences.getString(TOKEN, "")
         user.isLogin = preferences.getBoolean(LOGIN, false)
+        user.isFirstLogin = preferences.getBoolean(FIRST_LOGIN, true)
         return user
     }
 
@@ -25,16 +27,7 @@ internal class Preferences(context: Context) {
         val editor = preferences.edit()
         editor.remove(TOKEN)
         editor.putBoolean(LOGIN, false)
-        editor.apply()
-    }
-
-    fun isFirstLogin(): Boolean {
-        return preferences.getBoolean(FIRST_LOGIN, true)
-    }
-
-    fun setFirstLogin(value: Boolean) {
-        val editor = preferences.edit()
-        editor.putBoolean(FIRST_LOGIN, value)
+        editor.putBoolean(FIRST_LOGIN, false)
         editor.apply()
     }
 

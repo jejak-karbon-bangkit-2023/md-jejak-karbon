@@ -17,7 +17,6 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="1dp"
         android:layout_marginBottom="24dp"
-        android:background=""
         android:fontFamily="@font/quicksand_bold"
         android:text="@string/profile_screen_title"
         android:textSize="20sp"

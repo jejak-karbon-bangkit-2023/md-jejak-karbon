@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.jejakkarbon.data.JejakKarbonRepository
 import com.jejakkarbon.data.JejakKarbonImplRepository
 import com.jejakkarbon.data.network.api.ApiConfig
+import com.jejakkarbon.ui.dashboard.DashboardViewModel
 import com.jejakkarbon.ui.login.LoginViewModel
+import com.jejakkarbon.ui.onboarding.PredictViewModel
 import com.jejakkarbon.ui.register.RegisterViewModel
 
 object Injection {
@@ -23,5 +25,12 @@ object Injection {
 
     fun provideRegisterViewModel(activity: AppCompatActivity): RegisterViewModel {
         return RegisterViewModel(jejakKarbonRepository)
+    }
+
+    fun providePredictViewModel(activity: AppCompatActivity): PredictViewModel{
+        return PredictViewModel(jejakKarbonRepository)
+    }
+    fun provideDashboardViewModel(activity: AppCompatActivity): DashboardViewModel{
+        return DashboardViewModel(jejakKarbonRepository)
     }
 }

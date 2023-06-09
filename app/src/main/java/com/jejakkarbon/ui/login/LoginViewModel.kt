@@ -11,16 +11,10 @@ class LoginViewModel(private val authRepository: JejakKarbonRepository) : ViewMo
     private val _loginState = MutableLiveData<Result<Unit>>()
     val loginState = _loginState
 
-    val userToken = MutableLiveData<String>()
-
     fun login(email: String, password: String) {
         viewModelScope.launch {
             _loginState.value = Result.Loading()
-
             val result = authRepository.login(email, password)
-            if (result is Result.Success) {
-                userToken.value = result.data.toString() // Set the user token
-            }
             _loginState.value = result
         }
     }

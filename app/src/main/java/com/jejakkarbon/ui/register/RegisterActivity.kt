@@ -33,23 +33,19 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(binding.root)
         initializeDependencies()
         setupClickListeners()
-        observeRegisterState()
     }
 
     private fun initializeDependencies() {
         val applicationContext = applicationContext
         Injection.initialize(applicationContext)
-        preferences = Preferences(this)
         registerViewModel = Injection.provideRegisterViewModel(this)
+        preferences = Preferences(this)
         googleSignInClient = createGoogleSignInClient()
     }
 
     private fun setupClickListeners() {
         binding.btRegister.setOnClickListener {
-            val username = binding.edUsernameRegister.text.toString()
-            val email = binding.edEmailRegister.text.toString()
-            val password = binding.edPasswordRegister.text.toString()
-            registerViewModel.register(RegisterRequest(username, email, password))
+            performRegister()
         }
 
         binding.ivGoogleRegisLogin.setOnClickListener {
@@ -61,7 +57,7 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun observeRegisterState() {
+    private fun observeRegisterUserState() {
         registerViewModel.registerState.observe(this) { result ->
             when (result) {
                 is Result.Success -> {
@@ -72,7 +68,28 @@ class RegisterActivity : AppCompatActivity() {
 
                 is Result.Error -> {
                     binding.progressBar.visibility = View.GONE
-                    showToast("Registration failed: ${result.message}")
+                    showToast(result.message)
+                }
+
+                is Result.Loading -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+            }
+        }
+    }
+
+    private fun observeRegisterGoogleState() {
+        registerViewModel.registerWithGoogleState.observe(this) { result ->
+            when (result) {
+                is Result.Success -> {
+                    binding.progressBar.visibility = View.GONE
+                    showToast("Registration successful")
+                    checkUserLoginStatus()
+                }
+
+                is Result.Error -> {
+                    binding.progressBar.visibility = View.GONE
+                    showToast(result.message)
                 }
 
                 is Result.Loading -> {
@@ -105,7 +122,6 @@ class RegisterActivity : AppCompatActivity() {
             val idToken = account?.idToken
             idToken?.let {
                 registerViewModel.registerWithGoogle(it)
-                checkUserLoginStatus()
                 saveUserToken(it)
             }
         } catch (e: ApiException) {
@@ -120,9 +136,8 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun checkUserLoginStatus() {
         val userToken by lazy { preferences.getToken() }
-        val isFirstLogin = preferences.isFirstLogin()
         if (userToken.isLogin) {
-            if (isFirstLogin) {
+            if (userToken.isFirstLogin) {
                 navigateToOnboardingActivity()
             } else {
                 navigateToDashboardActivity()
@@ -130,10 +145,24 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
+    private fun performRegister() {
+        val email = binding.edEmailRegister.text.toString()
+        val password = binding.edPasswordRegister.text.toString()
+        val displayName = binding.edUsernameRegister.text.toString()
+
+        if (email.isNotEmpty() && password.isNotEmpty() && displayName.isNotEmpty()) {
+            val userData = RegisterRequest(email, password, displayName)
+            registerViewModel.registerUser(userData)
+            observeRegisterUserState()
+        } else {
+            showToast("Please fill in all the fields.")
+        }
+    }
 
     private fun signInWithGoogle() {
         val signInIntent = googleSignInClient.signInIntent
         signInLauncher.launch(signInIntent)
+        observeRegisterGoogleState()
     }
 
     private fun navigateToLoginActivity() {

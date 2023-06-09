@@ -34,7 +34,6 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
         initializeDependencies()
         setupClickListeners()
-        checkUserLoginStatus()
     }
 
     private fun initializeDependencies() {
@@ -55,7 +54,6 @@ class LoginActivity : AppCompatActivity() {
             when (result) {
                 is Result.Success -> {
                     binding.progressBar.visibility = View.GONE
-                    checkUserLoginStatus()
                     saveUserToken()
                 }
 
@@ -76,8 +74,10 @@ class LoginActivity : AppCompatActivity() {
         currentUser?.getIdToken(true)?.addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val idToken = task.result.token
-                val userToken = UserToken(token = idToken.toString(), isLogin = true)
+                val userToken = UserToken(token = idToken.toString(), isLogin = true, isFirstLogin = true)
                 preferences.setToken(userToken)
+                checkUserLoginStatus()
+
             } else {
                 val exception = task.exception
                 showToast("Token retrieval failed: ${exception?.message ?: "Token retrieval failed"}")
@@ -87,9 +87,8 @@ class LoginActivity : AppCompatActivity() {
 
     private fun checkUserLoginStatus() {
         val userToken by lazy { preferences.getToken() }
-        val isFirstLogin = preferences.isFirstLogin()
         if (userToken.isLogin) {
-            if (isFirstLogin) {
+            if (userToken.isFirstLogin) {
                 navigateToOnboardingActivity()
             } else {
                 navigateToDashboardActivity()
@@ -129,13 +128,6 @@ class LoginActivity : AppCompatActivity() {
             val idToken = account?.idToken
             idToken?.let {
                 loginViewModel.loginWithGoogle(it)
-                val isFirstLogin = preferences.isFirstLogin()
-                if (isFirstLogin) {
-                    navigateToOnboardingActivity()
-                } else {
-                    navigateToDashboardActivity()
-                }
-                saveUserToken()
             }
         } catch (e: ApiException) {
             showToast("Google sign-in failed: ${e.message}")
@@ -145,6 +137,7 @@ class LoginActivity : AppCompatActivity() {
     private fun signInWithGoogle() {
         val signInIntent = googleSignInClient.signInIntent
         signInLauncher.launch(signInIntent)
+        observeLoginState()
     }
 
     private fun navigateToRegisterActivity() {

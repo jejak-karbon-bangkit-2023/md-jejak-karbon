@@ -6,5 +6,6 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class UserToken(
     var token: String? = null,
-    var isLogin: Boolean = false
+    var isLogin: Boolean = false,
+    var isFirstLogin: Boolean = true
 ): Parcelable

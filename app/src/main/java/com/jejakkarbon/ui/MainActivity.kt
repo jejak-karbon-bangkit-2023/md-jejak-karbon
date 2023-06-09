@@ -2,6 +2,7 @@ package com.jejakkarbon.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.jejakkarbon.databinding.ActivityMainBinding
 import com.jejakkarbon.preferences.Preferences
@@ -23,9 +24,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun checkUserLoginStatus() {
         val userToken by lazy { preferences.getToken() }
-        val isFirstLogin = preferences.isFirstLogin()
+        Log.d("Main Token", userToken.token.toString())
+        Log.d("Main Login", userToken.isLogin.toString())
+        Log.d("Main First Login", userToken.isFirstLogin.toString())
         if (userToken.isLogin) {
-            if (isFirstLogin) {
+            if (userToken.isFirstLogin) {
                 navigateToOnboardingActivity()
             } else {
                 navigateToDashboardActivity()

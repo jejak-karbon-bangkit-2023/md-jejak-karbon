@@ -50,7 +50,9 @@ class OptionsDialogFragment : DialogFragment() {
 
         btnSkip.setOnClickListener {
             handleSkipOption()
-            preferences.setFirstLogin(false)
+            val userToken = preferences.getToken()
+            userToken.isFirstLogin = false
+            preferences.setToken(userToken)
             dismiss()
         }
 

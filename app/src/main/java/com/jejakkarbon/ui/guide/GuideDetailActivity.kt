@@ -9,4 +9,9 @@ class GuideDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_guide_detail)
     }
+
+    companion object {
+        const val EXTRA_ID = "extra_ID"
+
+    }
 }
