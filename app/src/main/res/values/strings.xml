@@ -60,4 +60,5 @@
     <string name="profile_screen_title">Profile</string>
     <string name="back">Back</string>
     <string name="edit_profile_title">Edit Account</string>
+    <string name="calculate_footprint">Calculate My Footprint</string>
 </resources>
