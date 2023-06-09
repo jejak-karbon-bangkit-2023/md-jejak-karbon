@@ -60,5 +60,9 @@
     <string name="profile_screen_title">Profile</string>
     <string name="back">Back</string>
     <string name="edit_profile_title">Edit Account</string>
+    <string name="my_footprint">My Footprint</string>
+    <string name="footprint_value">244 Kg</string>
+    <string name="positive_impact">Positive Impact</string>
+    <string name="positiv_impact_value">1244 Kg</string>
     <string name="calculate_footprint">Calculate My Footprint</string>
 </resources>
