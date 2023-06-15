@@ -23,6 +23,24 @@ internal class Preferences(context: Context) {
         return user
     }
 
+    fun setRide(ride: String) {
+        val editor = preferences.edit()
+        editor.putString(RIDE, ride)
+        editor.apply()
+    }
+
+    fun setDistance(distance: Int) {
+        val editor = preferences.edit()
+        editor.putInt(DISTANCE, distance)
+        editor.apply()
+    }
+
+    fun getRideAndDistance(): Pair<String, Int> {
+        val addRide = preferences.getString(RIDE, "") ?: ""
+        val distance = preferences.getInt(DISTANCE, 0)
+        return Pair(addRide, distance)
+    }
+
     fun resetToken() {
         val editor = preferences.edit()
         editor.remove(TOKEN)
@@ -37,5 +55,7 @@ internal class Preferences(context: Context) {
         private const val TOKEN = "token"
         private const val FIRST_LOGIN = "isFirstLogin"
         private const val LOGIN = "isLogin"
+        private const val RIDE = "ride"
+        private const val DISTANCE = "distance"
     }
 }

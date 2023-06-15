@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.onboarding.OnboardingActivity">
+    tools:context=".ui.onboarding.OnboardingTransport">
 
     <TextureView
         android:id="@+id/videoTextureView"
@@ -16,13 +16,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/question_1"
+        android:id="@+id/question_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:background="@drawable/textview_background"
         android:padding="20dp"
-        android:text="@string/question_1"
+        android:text="@string/what_does_your_vehicle_use"
         app:layout_constraintBottom_toTopOf="@+id/radioGroup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -49,35 +49,21 @@
             style="@style/Widget.Material3.CompoundButton.RadioButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/i_don_t_drive_or_ride" />
+            android:text="@string/motorcycle" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/radiobtn_2"
             style="@style/Widget.Material3.CompoundButton.RadioButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/up_100" />
+            android:text="@string/car" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/radiobtn_3"
             style="@style/Widget.Material3.CompoundButton.RadioButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/up_300" />
-
-        <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/radiobtn_4"
-            style="@style/Widget.Material3.CompoundButton.RadioButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/up_500" />
-
-        <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/radiobtn_5"
-            style="@style/Widget.Material3.CompoundButton.RadioButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/enter_kilometers" />
+            android:text="@string/bus" />
 
     </RadioGroup>
 

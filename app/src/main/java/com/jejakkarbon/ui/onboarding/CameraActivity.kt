@@ -42,7 +42,7 @@ class CameraActivity : AppCompatActivity() {
         viewFinder = binding.viewFinder
         captureButton = binding.captureImage
         switchCameraButton = binding.switchCamera
-
+        supportActionBar?.hide()
         if (allPermissionsGranted()) {
             startCamera()
         } else {

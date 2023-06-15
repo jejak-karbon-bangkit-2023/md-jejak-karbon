@@ -16,6 +16,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.jejakkarbon.R
 import com.jejakkarbon.databinding.ActivityOnboardingPlantBinding
+import com.jejakkarbon.di.Injection
 import com.jejakkarbon.preferences.Preferences
 import com.jejakkarbon.ui.dashboard.DashboardActivity
 
@@ -26,6 +27,9 @@ class OnboardingPlantActivity : AppCompatActivity() {
     private lateinit var radioGroup: RadioGroup
     private lateinit var continueBtn: Button
     private lateinit var preferences: Preferences
+    private lateinit var onBoardingPlantViewModel: OnBoardingPlantViewModel
+    private var ride: String? = null
+    private var distance: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +40,16 @@ class OnboardingPlantActivity : AppCompatActivity() {
         setupRadioGroup()
         setupContinueButton()
         setupMediaPlayer()
+
+
+        val applicationContext = applicationContext
+        Injection.initialize(applicationContext)
+        onBoardingPlantViewModel = Injection.provideOnBoardingPlantViewModel(this)
+
+        val rideDistance = preferences.getRideAndDistance()
+
+        ride = rideDistance.first
+        distance = rideDistance.second
     }
 
     private fun setupMediaPlayer() {
@@ -119,6 +133,7 @@ class OnboardingPlantActivity : AppCompatActivity() {
             val userToken = preferences.getToken()
             userToken.isFirstLogin = false
             preferences.setToken(userToken)
+            onBoardingPlantViewModel.predict(file = null, distance, ride)
         }
     }
 
@@ -132,4 +147,5 @@ class OnboardingPlantActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
+
 }

@@ -1,134 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/md_theme_light_background"
     tools:context=".ui.guide.GuideDetailActivity">
 
-    <com.google.android.material.navigation.NavigationView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/back_menu" />
-
-    <TextView
-        android:id="@+id/tv_guide_title"
-        android:layout_width="380dp"
-        android:layout_height="670dp"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/tv_round_border"
-        android:fontFamily="@font/quicksand_bold"
-        android:textAlignment="center"
-        android:textColorHighlight="@color/white"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Guide Title" />
-
-    <ImageView
-        android:id="@+id/iv_guide_image"
-        android:layout_width="260dp"
-        android:layout_height="260dp"
-        android:layout_marginBottom="300dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
-
-    <TextView
-        android:id="@+id/tv_guide_category"
-        android:layout_width="124dp"
-        android:layout_height="32dp"
-        android:layout_marginEnd="150dp"
-        android:layout_marginBottom="295dp"
-        android:background="@drawable/tv_round_border"
-        android:fontFamily="@font/quicksand_bold"
-        android:textAlignment="center"
-        android:textColorHighlight="@color/white"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_guide_title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.515"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_guide_image"
-        tools:text="Guide Category" />
-
-    <ImageView
-        android:id="@+id/iv_date_logo"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="100dp"
-        android:src="@drawable/ic_date_logo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tv_guide_category"
-        app:layout_constraintTop_toBottomOf="@+id/iv_guide_image" />
-
-    <TextView
-        android:id="@+id/tv_guide_date"
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="64dp"
-        android:fontFamily="@font/quicksand_regular"
-        android:textAlignment="center"
-        android:textColorHighlight="@color/white"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/tv_guide_title"
-        app:layout_constraintStart_toEndOf="@+id/iv_date_logo"
-        app:layout_constraintTop_toBottomOf="@+id/iv_guide_image"
-        tools:text="20.05.2023" />
-
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="350dp"
-        android:layout_height="300dp"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/tv_round_border"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_guide_title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_guide_image">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/text_title"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="@string/title_guide"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tv_guide_description"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:background="@drawable/tv_round_border"
-                android:fontFamily="@font/quicksand_bold"
-                android:textAlignment="inherit"
-                android:textColorHighlight="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:layout_editor_absoluteX="31dp"
-                tools:text="Guide Description" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+        <ImageView
+            android:id="@+id/image_guide"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_title"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/image"
+            android:padding="16dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/baseline_person" />
 
-    <ProgressBar
-        android:id="@+id/progressBar2"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/text_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/image_guide"
+            android:padding="16dp"
+            android:text="@string/deskripsi"
+            android:textSize="16sp" />
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
+</ScrollView>

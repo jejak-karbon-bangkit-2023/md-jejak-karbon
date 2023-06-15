@@ -1,6 +1,5 @@
 package com.jejakkarbon.ui.onboarding
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,24 +11,23 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.MultipartBody
 
+class OnBoardingPlantViewModel(private val repository: JejakKarbonRepository) : ViewModel() {
+    private val _onBoardingPlantResult = MutableLiveData<Result<PredictResponse?>>()
 
-class PredictViewModel(private val repository: JejakKarbonRepository) : ViewModel() {
-    private val _predictResult = MutableLiveData<Result<PredictResponse?>>()
-    val predictResult: LiveData<Result<PredictResponse?>> = _predictResult
 
     fun predict(file: MultipartBody.Part?, distance: Int?, transport: String?) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 withContext(Dispatchers.Main) {
-                    _predictResult.value = Result.Loading()
+                    _onBoardingPlantResult.value = Result.Loading()
                 }
                 val response = repository.predict(file, distance, transport)
                 withContext(Dispatchers.Main) {
-                    _predictResult.value = Result.Success(response.data)
+                    _onBoardingPlantResult.value = Result.Success(response.data)
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    _predictResult.value = Result.Error("Prediction failed: ${e.message}")
+                    _onBoardingPlantResult.value = Result.Error("Prediction failed: ${e.message}")
                 }
             }
         }

@@ -1,6 +1,5 @@
 package com.jejakkarbon.ui.onboarding
 
-import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Matrix
 import android.graphics.SurfaceTexture
@@ -11,57 +10,44 @@ import android.os.Bundle
 import android.view.Surface
 import android.view.TextureView
 import android.widget.Button
-import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.jejakkarbon.R
-import com.jejakkarbon.databinding.ActivityOnboardingBinding
+import com.jejakkarbon.databinding.ActivityOnboardingTransportBinding
 import com.jejakkarbon.preferences.Preferences
 
-class OnboardingActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityOnboardingBinding
+class OnboardingTransport : AppCompatActivity() {
+    private lateinit var binding: ActivityOnboardingTransportBinding
     private lateinit var videoTextureView: TextureView
     private lateinit var radioGroup: RadioGroup
-    private lateinit var preferences: Preferences
-    private lateinit var customRadioValue: RadioButton
     private lateinit var continueBtn: Button
-    private var previousCustomValue: String = ""
-    private var customValue: String = "0"
-    private var radioValue: Int = 0
+    private lateinit var preferences: Preferences
+    private var radioValue: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityOnboardingBinding.inflate(layoutInflater)
+        binding = ActivityOnboardingTransportBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        preferences = Preferences(this)
         initializeViews()
         setupContinueButton()
         setupMediaPlayer()
         setupRadioGroup()
-        preferences = Preferences(this)
     }
 
     private fun initializeViews() {
         videoTextureView = binding.videoTextureView
         radioGroup = binding.radioGroup
-        customRadioValue = binding.radiobtn5
         continueBtn = binding.buttonContinue
     }
 
     private fun setupContinueButton() {
         continueBtn.setOnClickListener {
-            if (radioValue != 0) {
-                val intent = Intent(this, OnboardingTransport::class.java)
-                preferences.setDistance(radioValue)
-                startActivity(intent)
-
-            } else {
-                val intent = Intent(this, OnboardingPlantActivity::class.java)
-                preferences.setDistance(radioValue)
-                startActivity(intent)
-            }
+            val intent = Intent(this, OnboardingPlantActivity::class.java)
+            radioValue?.let { it1 -> preferences.setRide(it1) }
+            startActivity(intent)
         }
     }
 
@@ -74,7 +60,7 @@ class OnboardingActivity : AppCompatActivity() {
             ) {
                 mediaPlayer.setDataSource(
                     applicationContext,
-                    Uri.parse("android.resource://com.jejakkarbon/${R.raw.car_traffic}")
+                    Uri.parse("android.resource://com.jejakkarbon/${R.raw.car_transport}")
                 )
                 mediaPlayer.setSurface(Surface(surface))
                 mediaPlayer.isLooping = true
@@ -127,63 +113,21 @@ class OnboardingActivity : AppCompatActivity() {
             val isRadioButtonSelected = index >= 0
             continueBtn.isEnabled = isRadioButtonSelected
 
-            if (index == 4 && radioButton.isChecked) {
-                showCustomInputDialog()
-            }
             when (index) {
                 0 -> {
-                    radioValue = 0
+                    radioValue = "Sepeda Motor"
                 }
 
                 1 -> {
-                    radioValue = 100
+                    radioValue = "Mobil"
                 }
 
                 2 -> {
-                    radioValue = 300
-                }
-
-                3 -> {
-                    radioValue = 500
-                }
-
-                4 -> {
-                    radioValue = customValue.toInt()
+                    radioValue = "Bis"
                 }
             }
+
         }
     }
 
-    private fun showCustomInputDialog() {
-        val dialogBuilder = AlertDialog.Builder(this)
-        val dialogView = layoutInflater.inflate(R.layout.dialog_custom_input, null)
-        val editTextCustomValue = dialogView.findViewById<EditText>(R.id.editTextCustomValue)
-
-        editTextCustomValue.setText(previousCustomValue)
-        dialogBuilder.setView(dialogView)
-
-        dialogBuilder.setPositiveButton("Submit") { dialog, _ ->
-            customValue = editTextCustomValue.text.toString()
-            handleCustomValue(customValue)
-            dialog.dismiss()
-        }
-        dialogBuilder.setNegativeButton("Cancel") { dialog, _ ->
-            dialog.dismiss()
-        }
-
-        val dialog = dialogBuilder.create()
-        dialog.show()
-    }
-
-    private fun handleCustomValue(customValue: String) {
-        previousCustomValue = customValue
-        customRadioValue.text = buildString {
-            append(customValue)
-            append(" Kilometers")
-        }
-    }
 }
-
-
-
-

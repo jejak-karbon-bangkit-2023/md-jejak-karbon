@@ -12,7 +12,6 @@ import android.widget.LinearLayout
 import androidx.fragment.app.DialogFragment
 import com.jejakkarbon.R
 import com.jejakkarbon.preferences.Preferences
-import com.jejakkarbon.ui.dashboard.DashboardActivity
 
 class OptionsDialogFragment : DialogFragment() {
     private lateinit var preferences: Preferences
@@ -45,16 +44,8 @@ class OptionsDialogFragment : DialogFragment() {
 
         dialog.window?.setBackgroundDrawableResource(R.drawable.rounded_dialog_background)
 
-        val btnSkip = contentView.findViewById<Button>(R.id.btnSkip)
         val btnContinue = contentView.findViewById<Button>(R.id.btnContinue)
 
-        btnSkip.setOnClickListener {
-            handleSkipOption()
-            val userToken = preferences.getToken()
-            userToken.isFirstLogin = false
-            preferences.setToken(userToken)
-            dismiss()
-        }
 
         btnContinue.setOnClickListener {
             startCameraActivity()
@@ -71,12 +62,6 @@ class OptionsDialogFragment : DialogFragment() {
         preferences = Preferences(context)
     }
 
-    private fun handleSkipOption() {
-        val intent = Intent(requireContext(), DashboardActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-        startActivity(intent)
-        requireActivity().finish()
-    }
 
     private fun startCameraActivity() {
         val intent = Intent(requireContext(), CameraActivity::class.java)

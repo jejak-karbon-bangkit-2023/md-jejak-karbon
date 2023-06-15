@@ -1,8 +1,8 @@
 package com.jejakkarbon.model
 
-data class Plant(
+data class Transport(
     val index: Int,
-    val image_url: String,
     val name: String,
-    val c_in: Double
+    val distance: String?,
+    val c_out: Double
 )

@@ -25,6 +25,8 @@ class PredictActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPredictBinding
     private lateinit var predictViewModel: PredictViewModel
     private lateinit var preferences: Preferences
+    private var ride: String? = null
+    private var distance: Int? = null
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,13 +38,16 @@ class PredictActivity : AppCompatActivity() {
         predictViewModel = Injection.providePredictViewModel(this)
         progressBar = binding.progressBar
         preferences = Preferences(this)
+        val rideDistance = preferences.getRideAndDistance()
 
+        ride = rideDistance.first
+        distance = rideDistance.second
         val imageUriString: String? = intent.getStringExtra("imageUri")
         if (imageUriString != null) {
             val imageUri = Uri.parse(imageUriString)
             val imageFile = imageUri.path?.let { File(it) }
             if (imageFile != null) {
-                predictImage(imageFile)
+                predictImage(imageFile, distance, ride)
             }
         }
 
@@ -61,10 +66,10 @@ class PredictActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun predictImage(image: File) {
+    private fun predictImage(image: File, distance: Int?, transport: String?) {
         val requestFile = image.asRequestBody("image/*".toMediaType())
         val multipartBody = MultipartBody.Part.createFormData("file", image.name, requestFile)
-        predictViewModel.predict(multipartBody)
+        predictViewModel.predict(multipartBody, distance, transport)
         predictObserve()
     }
 
@@ -78,7 +83,7 @@ class PredictActivity : AppCompatActivity() {
                 is Result.Success -> {
                     progressBar.visibility = View.GONE
                     val predictResponse = result.data
-                    val lastPlant = predictResponse?.data?.plant?.lastOrNull()
+                    val lastPlant = predictResponse?.data_plant?.plant?.lastOrNull()
                     val plantName = lastPlant?.name
                     val plantImage = lastPlant?.image_url
                     binding.tvTitlePlant.text = plantName

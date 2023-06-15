@@ -2,8 +2,8 @@ package com.jejakkarbon.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 import com.jejakkarbon.databinding.ActivityMainBinding
 import com.jejakkarbon.preferences.Preferences
 import com.jejakkarbon.ui.dashboard.DashboardActivity
@@ -20,13 +20,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         preferences = Preferences(this)
         checkUserLoginStatus()
+        refreshUserToken()
     }
 
     private fun checkUserLoginStatus() {
         val userToken by lazy { preferences.getToken() }
-        Log.d("Main Token", userToken.token.toString())
-        Log.d("Main Login", userToken.isLogin.toString())
-        Log.d("Main First Login", userToken.isFirstLogin.toString())
         if (userToken.isLogin) {
             if (userToken.isFirstLogin) {
                 navigateToOnboardingActivity()
@@ -35,6 +33,24 @@ class MainActivity : AppCompatActivity() {
             }
         } else {
             navigateToLoginActivity()
+        }
+    }
+
+
+    private fun refreshUserToken() {
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        currentUser?.getIdToken(true)?.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val tokenResult = task.result
+                val refreshedToken = tokenResult?.token
+                val expirationTimestamp = tokenResult?.expirationTimestamp
+
+                if (refreshedToken != null && expirationTimestamp != null) {
+                    val userToken = preferences.getToken()
+                    userToken.token = refreshedToken
+                    preferences.setToken(userToken)
+                }
+            }
         }
     }
 
